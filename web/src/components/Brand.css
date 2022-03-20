@@ -1,0 +1,29 @@
+.app-logo {
+    pointer-events: none;
+    height: 50px;
+}
+
+.app-logo-invert {
+    pointer-events: none;
+    height: 50px;
+    filter: invert(1.0);
+    /*background-color: white;*/
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .app-logo {
+        animation: app-logo-spin infinite 36s linear;
+    }
+    .app-logo-invert {
+        animation: app-logo-spin infinite 36s linear;
+    }
+}
+
+@keyframes app-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(720deg);
+    }
+}
