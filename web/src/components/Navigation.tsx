@@ -29,7 +29,14 @@ const plugins: Array<Plugin> = [
   },
   {
     name: "Comparison",
-    tests: []
+    tests: [
+      { icon: "Plus", color: 'grape', label: 'Equals', route: '/playground/comparison/equals' },
+      { icon: "Plus", color: 'grape', label: 'Greater Than', route: '/playground/comparison/greater_than' },
+      { icon: "Plus", color: 'grape', label: 'Greater Than Or Equals', route: '/playground/comparison/greater_than_or_equals' },
+      { icon: "Plus", color: 'grape', label: 'Lower Than', route: '/playground/comparison/lower_than' },
+      { icon: "Plus", color: 'grape', label: 'Lower Than Or Equals', route: '/playground/comparison/lower_than_or_equals' },
+      { icon: "Plus", color: 'grape', label: 'Not Equals', route: '/playground/comparison/not_equals' },
+    ]
   },
   {
     name: "JSON",
@@ -52,19 +59,49 @@ const plugins: Array<Plugin> = [
   {
     name: "Numeric",
     tests: [
-      { icon: "Plus", color: 'teal', label: 'And', route: '/playground/numeric/and' },
-      { icon: "Minimize", color: 'violet', label: 'Or', route: '/playground/numeric/or' },
+      { icon: "Plus", color: 'teal', label: 'abs', route: '/playground/numeric/abs' },
+      { icon: "Plus", color: 'violet', label: 'acosh', route: '/playground/numeric/acosh' },
+      { icon: "Plus", color: 'violet', label: 'asin', route: '/playground/numeric/asin' },
+      { icon: "Plus", color: 'violet', label: 'asinh', route: '/playground/numeric/asinh' },
+      { icon: "Plus", color: 'violet', label: 'atan', route: '/playground/numeric/atan' },
+      { icon: "Plus", color: 'violet', label: 'atan2', route: '/playground/numeric/atan2' },
+      { icon: "Plus", color: 'violet', label: 'atanh', route: '/playground/numeric/atanh' },
+      { icon: "Plus", color: 'violet', label: 'cbrt', route: '/playground/numeric/cbrt' },
+      { icon: "Plus", color: 'violet', label: 'ceil', route: '/playground/numeric/ceil' },
+      { icon: "Plus", color: 'violet', label: 'cos', route: '/playground/numeric/cos' },
+      { icon: "Plus", color: 'violet', label: 'cosh', route: '/playground/numeric/cosh' },
+      { icon: "Plus", color: 'violet', label: 'exp', route: '/playground/numeric/exp' },
+      { icon: "Plus", color: 'violet', label: 'exp2', route: '/playground/numeric/exp2' },
+      { icon: "Plus", color: 'violet', label: 'floor', route: '/playground/numeric/floor' },
+      { icon: "Plus", color: 'violet', label: 'fract', route: '/playground/numeric/fract' },
+      { icon: "Plus", color: 'violet', label: 'hypot', route: '/playground/numeric/hypot' },
+      { icon: "Plus", color: 'violet', label: 'ln', route: '/playground/numeric/ln' },
+      { icon: "Plus", color: 'violet', label: 'log', route: '/playground/numeric/log' },
+      { icon: "Plus", color: 'violet', label: 'log2', route: '/playground/numeric/log2' },
+      { icon: "Plus", color: 'violet', label: 'log10', route: '/playground/numeric/log10' },
+      { icon: "Plus", color: 'violet', label: 'pow', route: '/playground/numeric/pow' },
+      { icon: "Plus", color: 'violet', label: 'recip', route: '/playground/numeric/recip' },
+      { icon: "Plus", color: 'violet', label: 'round', route: '/playground/numeric/round' },
+      { icon: "Plus", color: 'violet', label: 'signum', route: '/playground/numeric/signum' },
+      { icon: "Plus", color: 'violet', label: 'sin', route: '/playground/numeric/sin' },
+      { icon: "Plus", color: 'violet', label: 'sinh', route: '/playground/numeric/sinh' },
+      { icon: "Plus", color: 'violet', label: 'sqrt', route: '/playground/numeric/sqrt' },
+      { icon: "Plus", color: 'violet', label: 'tan', route: '/playground/numeric/tan' },
+      { icon: "Plus", color: 'violet', label: 'tanh', route: '/playground/numeric/tanh' },
+      { icon: "Plus", color: 'violet', label: 'to_degrees', route: '/playground/numeric/to_degrees' },
+      { icon: "Plus", color: 'violet', label: 'to_radians', route: '/playground/numeric/to_radians' },
+      { icon: "Plus", color: 'violet', label: 'trunc', route: '/playground/numeric/trunc' },
     ]
   },
   {
     name: "Random",
     tests: [
-      { icon: "Clock", color: 'grape', label: 'Pseudo Random Number', route: '/playground/scheduler/pseudo_random_number' },
-      { icon: "Clock", color: 'grape', label: 'Random Bool', route: '/playground/scheduler/random_bool' },
-      { icon: "Clock", color: 'grape', label: 'Random Number', route: '/playground/scheduler/random_number' },
-      { icon: "Clock", color: 'grape', label: 'Random Int Within Range', route: '/playground/scheduler/random_integer_within_range' },
-      { icon: "Clock", color: 'grape', label: 'Random String', route: '/playground/scheduler/random_string' },
-      { icon: "Clock", color: 'grape', label: 'Random UUID', route: '/playground/scheduler/random_uuid' },
+      { icon: "Clock", color: 'grape', label: 'Pseudo Random Number', route: '/playground/random/pseudo_random_number' },
+      { icon: "Clock", color: 'grape', label: 'Random Bool', route: '/playground/random/random_bool' },
+      { icon: "Clock", color: 'grape', label: 'Random Number', route: '/playground/random/random_number' },
+      { icon: "Clock", color: 'grape', label: 'Random Int Within Range', route: '/playground/random/random_integer_within_range' },
+      { icon: "Clock", color: 'grape', label: 'Random String', route: '/playground/random/random_string' },
+      { icon: "Clock", color: 'grape', label: 'Random UUID', route: '/playground/random/random_uuid' },
     ]
   },
   {
@@ -76,7 +113,16 @@ const plugins: Array<Plugin> = [
   },
   {
     name: "String",
-    tests: []
+    tests: [
+      { icon: "Plus", color: 'grape', label: 'Trim', route: '/playground/string/trim' },
+      { icon: "Plus", color: 'grape', label: 'TrimStart', route: '/playground/string/trim_start' },
+      { icon: "Plus", color: 'grape', label: 'TrimEnd', route: '/playground/string/trim_end' },
+      { icon: "Plus", color: 'grape', label: 'Uppercase', route: '/playground/string/uppercase' },
+      { icon: "Plus", color: 'grape', label: 'Lowercase', route: '/playground/string/lowercase' },
+      { icon: "Plus", color: 'grape', label: 'StartsWith', route: '/playground/string/starts_with' },
+      { icon: "Plus", color: 'grape', label: 'EndsWith', route: '/playground/string/ends_with' },
+      { icon: "Plus", color: 'grape', label: 'Contains', route: '/playground/string/contains' },
+    ]
   },
 ];
 
