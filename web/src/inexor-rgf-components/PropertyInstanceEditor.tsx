@@ -1,7 +1,9 @@
 import {PropertyInstance} from "../inexor-rgf-graphql";
-import {Text, TextInput} from "@mantine/core";
+import {Text} from "@mantine/core";
 import PropertyInstanceNumberEditor from "./PropertyInstanceNumberEditor";
 import Instance from "./Instance";
+import PropertyInstanceStringEditor from "./PropertyInstanceStringEditor";
+import PropertyInstanceBoolEditor from "./PropertyInstanceBoolEditor";
 
 interface PropertyInstanceEditorProperties {
   instance: Instance;
@@ -10,33 +12,41 @@ interface PropertyInstanceEditorProperties {
 }
 
 function PropertyInstanceEditor({instance, property, doUpdateInstance}: PropertyInstanceEditorProperties) {
-  if (property?.type?.socketType !== "INPUT") {
-    return (
-      <Text>
-        {property?.value}
-      </Text>
-    )
-  }
-  const extension = property.type.extensions.filter(extension => extension.name === 'widgetType').at(0);
+  const extension = property?.type?.extensions.filter(extension => extension.name === "widgetType").at(0);
   switch (extension?.extension) {
-    case 'NumberInput':
+    case "Checkbox":
       return (
         <PropertyInstanceNumberEditor instance={instance} property={property} doUpdateInstance={doUpdateInstance} />
       )
-    case 'TextInput':
+    case "NumberInput":
       return (
-        <TextInput
-          required={true}
-          value={property.value}
-          onChange={(value) => console.log(value)}
-        />
+        <PropertyInstanceNumberEditor instance={instance} property={property} doUpdateInstance={doUpdateInstance} />
+      )
+    case "TextInput":
+      return (
+        <PropertyInstanceStringEditor instance={instance} property={property} doUpdateInstance={doUpdateInstance} />
       )
     default:
-      return (
-        <Text>
-          {property?.value}
-        </Text>
-      )
+      switch (property?.type?.dataType) {
+        case "BOOL":
+          return (
+            <PropertyInstanceBoolEditor instance={instance} property={property} doUpdateInstance={doUpdateInstance} />
+          )
+        case "NUMBER":
+          return (
+            <PropertyInstanceNumberEditor instance={instance} property={property} doUpdateInstance={doUpdateInstance} />
+          )
+        case "STRING":
+          return (
+            <PropertyInstanceStringEditor instance={instance} property={property} doUpdateInstance={doUpdateInstance} />
+          )
+        default:
+          return (
+            <Text>
+              {property?.value}
+            </Text>
+          )
+      }
   }
 }
 
