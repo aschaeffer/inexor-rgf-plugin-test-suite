@@ -1,13 +1,15 @@
-import {EntityInstance, PropertyInstance, RelationInstance} from "../inexor-rgf-graphql";
+import {PropertyInstance} from "../inexor-rgf-graphql";
 import {Text, TextInput} from "@mantine/core";
 import PropertyInstanceNumberEditor from "./PropertyInstanceNumberEditor";
+import Instance from "./Instance";
 
 interface PropertyInstanceEditorProperties {
-  instance: EntityInstance | RelationInstance;
+  instance: Instance;
   property: PropertyInstance;
+  doUpdateInstance: (instance: Instance, name: string, value: any) => Promise<Instance>;
 }
 
-function PropertyInstanceEditor({instance, property}: PropertyInstanceEditorProperties) {
+function PropertyInstanceEditor({instance, property, doUpdateInstance}: PropertyInstanceEditorProperties) {
   if (property?.type?.socketType !== "INPUT") {
     return (
       <Text>
@@ -19,7 +21,7 @@ function PropertyInstanceEditor({instance, property}: PropertyInstanceEditorProp
   switch (extension?.extension) {
     case 'NumberInput':
       return (
-        <PropertyInstanceNumberEditor instance={instance} property={property} />
+        <PropertyInstanceNumberEditor instance={instance} property={property} doUpdateInstance={doUpdateInstance} />
       )
     case 'TextInput':
       return (

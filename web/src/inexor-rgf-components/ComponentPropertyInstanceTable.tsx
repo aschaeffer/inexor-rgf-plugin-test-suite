@@ -1,15 +1,17 @@
-import {Component, EntityInstance, PropertyInstance, RelationInstance} from "../inexor-rgf-graphql";
+import {Component, PropertyInstance} from "../inexor-rgf-graphql";
 import PropertyInstanceTable from "./PropertyInstanceTable";
 import {Group, Paper, Text, useMantineColorScheme} from "@mantine/core";
 import {InfoCircle} from "tabler-icons-react";
+import Instance from "./Instance";
 
 interface ComponentPropertyInstanceTableProperties {
-  instance: EntityInstance | RelationInstance;
+  instance: Instance;
   component: Component;
   properties?: PropertyInstance[];
+  doUpdateInstance: (instance: Instance, name: string, value: any) => Promise<Instance>;
 }
 
-function ComponentPropertyInstanceTable({instance, component, properties}: ComponentPropertyInstanceTableProperties) {
+function ComponentPropertyInstanceTable({instance, component, properties, doUpdateInstance}: ComponentPropertyInstanceTableProperties) {
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
   const componentPropertyNames = component?.properties?.map((propertyType) => propertyType.name);
@@ -34,7 +36,7 @@ function ComponentPropertyInstanceTable({instance, component, properties}: Compo
   return (
     <>
       {description}
-      <PropertyInstanceTable instance={instance} properties={componentProperties} />
+      <PropertyInstanceTable instance={instance} properties={componentProperties} doUpdateInstance={doUpdateInstance} />
     </>
   )
 }

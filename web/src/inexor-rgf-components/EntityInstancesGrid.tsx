@@ -1,7 +1,7 @@
 import {
   EntityInstance,
   useCreateEntityInstanceWithIdMutation, useDeleteEntityInstanceMutation,
-  useGetEntityInstancesByTypeQuery
+  useGetEntityInstancesByTypeQuery, useUpdateEntityInstanceMutation
 } from "../inexor-rgf-graphql";
 import {Box, Button, Grid, Group} from "@mantine/core";
 import SimpleEntityInstance from "./SimpleEntityInstance";
@@ -45,9 +45,26 @@ function EntityInstancesGrid({entityTypeName} : EntityInstancesGridProperties) {
     setEntityInstances(entityInstances.filter(entityInstance => entityInstance.id !== id));
   }
 
+  const [updateEntityInstance] = useUpdateEntityInstanceMutation({
+  })
+
+  const doUpdateEntityInstance = async (instance: EntityInstance, name: string, value: any) => {
+    return (await updateEntityInstance({
+      variables: {
+        id: instance.id,
+        properties: [
+          {
+            name,
+            value
+          }
+        ]
+      }
+    })).data?.instances.entities.update as EntityInstance;
+  }
+
   const columns = entityInstances?.map((entityInstance) => (
     <Grid.Col key={entityInstance.id} sm={12} md={12} lg={6}>
-      <SimpleEntityInstance entityInstance={entityInstance}>
+      <SimpleEntityInstance entityInstance={entityInstance} doUpdateEntityInstance={doUpdateEntityInstance}>
         <Group>
           <Button
             color="red"

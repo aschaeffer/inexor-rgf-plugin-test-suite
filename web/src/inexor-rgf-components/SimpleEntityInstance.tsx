@@ -1,16 +1,18 @@
 import {Component, EntityInstance, PropertyInstance, SocketType} from "../inexor-rgf-graphql";
-import {Accordion, Badge, Card, Center, Divider, Group, Text, Title} from "@mantine/core";
+import {Accordion, Card, Center, Divider, Group, Text, Title} from "@mantine/core";
 import ComponentsPropertyInstancesAccordion from "./ComponentsPropertyInstancesAccordion";
 import PropertyInstanceTable from "./PropertyInstanceTable";
-import ComponentPropertyInstanceTable from "./ComponentPropertyInstanceTable";
+import InstanceType from "./InstanceType";
+import Instance from "./Instance";
 
 interface SimpleEntityInstanceProperties {
   entityInstance: EntityInstance;
   filterSocketType?: Array<SocketType>;
   children?: JSX.Element;
+  doUpdateEntityInstance: (instance: EntityInstance, name: string, value: any) => Promise<EntityInstance>;
 }
 
-function SimpleEntityInstance({entityInstance, filterSocketType, children}: SimpleEntityInstanceProperties) {
+function SimpleEntityInstance({entityInstance, filterSocketType, doUpdateEntityInstance, children}: SimpleEntityInstanceProperties) {
 
   const components = entityInstance?.type?.components as Array<Component>;
 
@@ -29,9 +31,22 @@ function SimpleEntityInstance({entityInstance, filterSocketType, children}: Simp
       .includes(property.name);
   }) as PropertyInstance[]
 
+  const instance = {
+    instanceType: InstanceType.EntityInstance,
+    instance: entityInstance,
+  };
+
+  const doUpdateInstance = async (instance: Instance, name: string, value: any) => {
+    const entityInstance = (await doUpdateEntityInstance(instance.instance as EntityInstance, name, value));
+    return {
+      instanceType: InstanceType.EntityInstance,
+      instance: entityInstance,
+    } as Instance;
+  }
+
   const ownPropertiesAccordionItem = ownProperties.length > 0 ? (
     <Accordion.Item label="Own Properties" >
-      <PropertyInstanceTable instance={entityInstance} properties={ownProperties} />
+      <PropertyInstanceTable instance={instance} properties={ownProperties} doUpdateInstance={doUpdateInstance} />
     </Accordion.Item>
   ) : (
     <></>
@@ -60,7 +75,7 @@ function SimpleEntityInstance({entityInstance, filterSocketType, children}: Simp
           {entityInstance?.label}
         </Text>
       </Center>
-      <ComponentsPropertyInstancesAccordion instance={entityInstance} components={components} properties={properties}>
+      <ComponentsPropertyInstancesAccordion instance={instance} components={components} properties={properties} doUpdateInstance={doUpdateInstance}>
         {ownPropertiesAccordionItem}
         {/*<Accordion.Item label="Own Properties" >*/}
         {/*  <PropertyInstanceTable properties={ownProperties} />*/}
