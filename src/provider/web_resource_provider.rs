@@ -45,7 +45,6 @@ impl WebResourceProvider for TestSuiteWebResourceProviderImpl {
         let asset = TestSuiteWebResourceAsset::get(path.as_ref());
         match asset {
             Some(asset) => {
-                // let x = asset.data;
                 let body: HttpBody = match asset.data {
                     Cow::Borrowed(bytes) => HttpBody::Binary(bytes.to_vec()),
                     Cow::Owned(bytes) => HttpBody::Binary(bytes.to_vec()),
@@ -56,7 +55,14 @@ impl WebResourceProvider for TestSuiteWebResourceProviderImpl {
                     .header(CONTENT_TYPE, mime_type.to_string())
                     .body(body)
             }
-            None => Response::builder().status(StatusCode::NOT_FOUND).body(HttpBody::None),
+            None => {
+                let uri = _request.uri();
+                if uri.path().starts_with("/playground") {
+                    self.handle_web_resource("index.html".to_owned(), _request)
+                } else {
+                    Response::builder().status(StatusCode::NOT_FOUND).body(HttpBody::None)
+                }
+            }
         }
     }
 }
