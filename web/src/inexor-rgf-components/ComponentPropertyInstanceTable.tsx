@@ -1,8 +1,9 @@
-import {Component, PropertyInstance} from "../inexor-rgf-graphql";
-import PropertyInstanceTable from "./PropertyInstanceTable";
-import {Group, Paper, Text, useMantineColorScheme} from "@mantine/core";
-import {InfoCircle} from "tabler-icons-react";
-import Instance from "./Instance";
+import {Component, PropertyInstance} from '../inexor-rgf-graphql';
+import PropertyInstanceTable from './PropertyInstanceTable';
+import {Group, Paper, Text, useMantineColorScheme} from '@mantine/core';
+import {InfoCircle} from 'tabler-icons-react';
+import Instance from './Instance';
+import {useMediaQuery} from '@mantine/hooks';
 
 interface ComponentPropertyInstanceTableProperties {
   instance: Instance;
@@ -16,7 +17,8 @@ function ComponentPropertyInstanceTable({instance, component, properties, doUpda
   const dark = colorScheme === 'dark';
   const componentPropertyNames = component?.properties?.map((propertyType) => propertyType.name);
   const componentProperties = properties?.filter((propertyInstance) => componentPropertyNames?.includes(propertyInstance.name));
-  const description = component.description ? (
+  const largeScreen = useMediaQuery('(min-width: 900px)');
+  const description = largeScreen && component.description ? (
     <Paper
       p="xs"
       radius="lg"

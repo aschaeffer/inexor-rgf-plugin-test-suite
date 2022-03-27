@@ -2,24 +2,26 @@ import React, {useState} from 'react';
 import './App.css';
 import {
   AppShell,
+  Burger,
+  ColorScheme,
+  ColorSchemeProvider,
   Header,
   MantineProvider,
-  ColorSchemeProvider,
-  ColorScheme,
   Navbar,
   ScrollArea,
-  MediaQuery,
-  Burger, useMantineTheme
-} from "@mantine/core";
-import Brand from "./components/Brand";
-import {useHotkeys, useLocalStorage} from "@mantine/hooks";
-import Navigation from "./components/Navigation";
-import {User} from "./components/User";
+  Tooltip,
+  useMantineTheme
+} from '@mantine/core';
+import Brand from './components/Brand';
+import {useHotkeys, useLocalStorage} from '@mantine/hooks';
+import Navigation from './components/Navigation';
+import {User} from './components/User';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import Overview from "./components/Overview";
-import Playground from "./components/Playground";
-import {HttpLink, from, InMemoryCache, ApolloClient, ApolloProvider,} from "@apollo/client"
-import {onError} from "@apollo/client/link/error"
+import Overview from './components/Overview';
+import Playground from './components/Playground';
+import {ApolloClient, ApolloProvider, from, HttpLink, InMemoryCache,} from '@apollo/client';
+import {onError} from '@apollo/client/link/error'
+import logo from './inexor.svg';
 
 function App() {
   const theme = useMantineTheme();
@@ -29,8 +31,9 @@ function App() {
     defaultValue: 'light',
   });
 
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+  const toggleColorScheme = (value?: ColorScheme) => setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+
+  const dark = colorScheme === 'dark';
 
   useHotkeys([['ctrl+J', () => toggleColorScheme()]]);
 
@@ -79,20 +82,23 @@ function App() {
               }
               header={
                 <Header height={80} p="xs">
-                  <Brand />
-                  <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-                    <Burger
-                      opened={opened}
-                      onClick={() => setOpened((o) => !o)}
-                      size="sm"
-                      color={theme.colors.gray[6]}
-                      mr="xl"
-                    />
-                  </MediaQuery>
+                  <Brand>
+                    <Tooltip label='Menu' withArrow>
+                      <Burger
+                        opened={opened}
+                        onClick={() => setOpened((o) => !o)}
+                        size="sm"
+                        color={theme.colors.gray[6]}
+                        mr="xl"
+                      >
+                        <img src={logo} {...dark ? {className: "app-logo"} : {className: "app-logo-invert"}} alt="logo" onClick={() => setOpened((o) => !o)} />
+                      </Burger>
+                    </Tooltip>
+                  </Brand>
                 </Header>
               }
               styles={(theme) => ({
-                main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },
+                main: { backgroundColor: dark ? theme.colors.dark[8] : theme.colors.gray[0] },
               })}
             >
               <Routes>

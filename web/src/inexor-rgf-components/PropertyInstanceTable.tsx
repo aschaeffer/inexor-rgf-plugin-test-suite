@@ -1,9 +1,32 @@
-import {PropertyInstance} from "../inexor-rgf-graphql";
-import {Table, Text} from "@mantine/core";
-import SocketBadge from "./SocketBadge";
-import DataTypeBadge from "./DataTypeBadge";
-import PropertyInstanceEditor from "./PropertyInstanceEditor";
-import Instance from "./Instance";
+import {PropertyInstance} from '../inexor-rgf-graphql';
+import {Table, Text} from '@mantine/core';
+import SocketBadge from './SocketBadge';
+import DataTypeBadge from './DataTypeBadge';
+import PropertyInstanceEditor from './PropertyInstanceEditor';
+import Instance from './Instance';
+import './PropertyInstanceTable.css';
+import {useMediaQuery} from '@mantine/hooks';
+
+const HEADER_COLUMN_NAMES = [
+  'Property',
+  'Value',
+  'Data Type',
+  'Socket Type'
+];
+
+
+interface PropertyInstanceTableHeaderColumnProperties {
+  title: string;
+}
+
+function PropertyInstanceTableHeaderColumn({title}: PropertyInstanceTableHeaderColumnProperties) {
+  const largeScreen = useMediaQuery('(min-width: 900px)');
+  return largeScreen ? (
+    <th>Data Type</th>
+  ) :  (
+    <th className="rotate"><div><span>{title}</span></div></th>
+  );
+}
 
 interface PropertyInstanceTableProperties {
   instance: Instance;
@@ -12,6 +35,9 @@ interface PropertyInstanceTableProperties {
 }
 
 function PropertyInstanceTable({instance, properties, doUpdateInstance}: PropertyInstanceTableProperties) {
+  const headerColumns = HEADER_COLUMN_NAMES.map((headerColumn) => (
+    <PropertyInstanceTableHeaderColumn title={headerColumn} />
+  ));
   const property_instance_rows = properties?.map((property) => (
     <tr key={property.name}>
       <td>
@@ -34,17 +60,14 @@ function PropertyInstanceTable({instance, properties, doUpdateInstance}: Propert
     return (<></>)
   }
   return (
-    <Table>
+    <Table className="property-instance-table">
       <thead>
-      <tr>
-        <th>Property</th>
-        <th>Value</th>
-        <th>Data Type</th>
-        <th>Socket Type</th>
-      </tr>
+        <tr>
+          {headerColumns}
+        </tr>
       </thead>
       <tbody>
-      {property_instance_rows}
+        {property_instance_rows}
       </tbody>
     </Table>
   );

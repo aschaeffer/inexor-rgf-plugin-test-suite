@@ -2,12 +2,12 @@ import {
   EntityInstance,
   useCreateEntityInstanceWithIdMutation, useDeleteEntityInstanceMutation,
   useGetEntityInstancesByTypeQuery, useUpdateEntityInstanceMutation
-} from "../inexor-rgf-graphql";
-import {Box, Button, Grid, Group} from "@mantine/core";
-import SimpleEntityInstance from "./SimpleEntityInstance";
-import React, {useState} from "react";
-import {v4 as uuidv4} from "uuid";
-import {CirclePlus, TrashX} from "tabler-icons-react";
+} from '../inexor-rgf-graphql';
+import {Box, Button, Grid, Group} from '@mantine/core';
+import SimpleEntityInstance from './SimpleEntityInstance';
+import React, {useState} from 'react';
+import {v4 as uuidv4} from 'uuid';
+import {CirclePlus, TrashX} from 'tabler-icons-react';
 
 interface EntityInstancesGridProperties {
   entityTypeName: string;
@@ -63,7 +63,7 @@ function EntityInstancesGrid({entityTypeName} : EntityInstancesGridProperties) {
   }
 
   const columns = entityInstances?.map((entityInstance) => (
-    <Grid.Col key={entityInstance.id} sm={12} md={12} lg={6}>
+    <Grid.Col key={entityInstance.id} sm={12} md={12} lg={12} xl={6}>
       <SimpleEntityInstance entityInstance={entityInstance} doUpdateEntityInstance={doUpdateEntityInstance}>
         <Group>
           <Button
@@ -79,19 +79,23 @@ function EntityInstancesGrid({entityTypeName} : EntityInstancesGridProperties) {
 
   return (
     <Box>
-      <Group mb={10}>
-        <Button onClick={async () => {
-          await createEntityInstanceOfType({
-            variables: {
-              type: entityTypeName,
-              id: uuidv4()
-            }
-          })
-        }}>
-          <CirclePlus size={24} />
-          Create
-        </Button>
+      <Group mb={10} align={'right'}>
       </Group>
+      <Grid>
+        <Grid.Col>
+          <Button onClick={async () => {
+            await createEntityInstanceOfType({
+              variables: {
+                type: entityTypeName,
+                id: uuidv4()
+              }
+            })
+          }}>
+            <CirclePlus size={24} />
+            Create
+          </Button>
+        </Grid.Col>
+      </Grid>
       <Grid>
         {columns}
       </Grid>
