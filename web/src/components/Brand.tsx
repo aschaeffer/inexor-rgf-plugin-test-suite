@@ -1,5 +1,14 @@
 import React from 'react';
-import {ActionIcon, Box, Center, Divider, Group, MediaQuery, Tooltip, useMantineColorScheme} from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Center,
+  Divider,
+  Group,
+  MediaQuery,
+  Tooltip,
+  useMantineColorScheme
+} from '@mantine/core';
 import {useFullscreen} from '@mantine/hooks';
 import {
   BrandDiscord,

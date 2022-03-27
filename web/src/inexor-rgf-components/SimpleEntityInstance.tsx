@@ -45,7 +45,7 @@ function SimpleEntityInstance({entityInstance, filterSocketType, doUpdateEntityI
   }
 
   const ownPropertiesAccordionItem = ownProperties.length > 0 ? (
-    <Accordion.Item label="Own Properties" >
+    <Accordion.Item label="Own Properties">
       <PropertyInstanceTable instance={instance} properties={ownProperties} doUpdateInstance={doUpdateInstance} />
     </Accordion.Item>
   ) : (

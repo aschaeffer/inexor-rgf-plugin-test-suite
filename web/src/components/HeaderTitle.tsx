@@ -1,10 +1,16 @@
-import {Title, useMantineTheme} from "@mantine/core";
-import {useMatch} from "react-router-dom";
-import React from "react";
+import {Title, useMantineTheme} from '@mantine/core';
+import {useMatch} from 'react-router-dom';
+import React from 'react';
+
+const MAX_LENGTH = 15;
 
 function HeaderTitle() {
   const theme = useMantineTheme();
   const match = useMatch(`/playground/:plugin/:test`);
+  let title = match ? ` / ${match.params.plugin} / ${match.params.test}` : '';
+  if (title.length > MAX_LENGTH) {
+    title = title.substring(0, MAX_LENGTH) + '...';
+  }
   return (
     <Title order={2} sx={{
       display: 'block',
@@ -19,7 +25,7 @@ function HeaderTitle() {
       },
     }}>
       Inexor Playground
-      {match ? ` / ${match.params.plugin} / ${match.params.test}` : ''}
+      {title}
     </Title>
   )
 }

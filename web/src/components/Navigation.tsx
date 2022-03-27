@@ -25,6 +25,9 @@ const plugins: Array<Plugin> = [
       { icon: "fa/FaDivide", color: 'teal', label: 'Div', route: '/playground/arithmetic/div' },
       { icon: "md/MdCompareArrows", color: 'violet', label: 'Min', route: '/playground/arithmetic/min' },
       { icon: "md/MdCompareArrows", color: 'violet', label: 'Max', route: '/playground/arithmetic/max' },
+      { icon: "Plus", color: 'teal', label: 'Counter', route: '/playground/arithmetic/counter' },
+      { icon: "Plus", color: 'teal', label: 'Increment', route: '/playground/arithmetic/increment' },
+      { icon: "Plus", color: 'teal', label: 'Decrement', route: '/playground/arithmetic/decrement' },
     ]
   },
   {
